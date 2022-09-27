@@ -1,13 +1,15 @@
-FROM node:alpine
+FROM node:16
 
-WORKDIR /demo-app
+WORKDIR /usr/src/app
 
-EXPOSE 3146
-
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY . ./
+#RUN npm ci --only=development
 
-CMD ["npm" "start"]
+COPY . .
+
+EXPOSE 8080
+
+CMD [ "node", "server.js" ]
