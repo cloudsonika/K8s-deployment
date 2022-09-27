@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app-deployment
+  name: demo-app
   labels:
     app: demo-app
 spec:
@@ -12,10 +12,14 @@ spec:
   template:
     metadata:
       labels:
-        app: demo-app 
+        app: demo-app
     spec:
       containers:
-      - name: demo-app
-        image: #path to your docker image
+      - name: demo-app-container
+        image: <aws_account_id>.dkr.ecr.<aws_region>.amazonaws.com/nodejs-hello-world
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+          - name: web
+            containerPort: 8080
+      imagePullSecrets:
+          - name: regcred

@@ -1,0 +1,2 @@
+sonar.projectKey=cloudsonika_K8s-deployment
+sonar.javascript.lcov.reportPaths=./coverage/lcov.info
