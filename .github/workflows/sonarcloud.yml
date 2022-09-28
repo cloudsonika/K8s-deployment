@@ -27,6 +27,5 @@ jobs:
           args:             
             -Dsonar.projectKey=cloudsonika_K8s-deployment
             -Dsonar.organization=cloudsonika
-            -Dsonar.sources=./src
 
 
