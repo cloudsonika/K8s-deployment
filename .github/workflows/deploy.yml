@@ -67,7 +67,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Deploy app on EKS using image pushed to ECR
-      id: deploy-image
+      id: deploy-app-eks
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: demo-app
