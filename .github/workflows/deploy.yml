@@ -83,19 +83,5 @@ jobs:
         cat ~/.kube/config
         kubectl cluster-info
         kubectl get pods --kubeconfig ~/.kube/config
-
-      
-    # - name: deploy to cluster 
-    #   uses: kodermax/kubectl-aws-eks@master 
-    #   env: 
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }} 
-    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }} 
-    #     with: 
-    #       args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
-          
-    # - name: verify deployment 
-    #   uses: kodermax/kubectl-aws-eks@master 
-    #   env: 
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }} 
-    #     with: 
-    #       args: rollout status deployment/my-app 
+        ls
+        pwd
