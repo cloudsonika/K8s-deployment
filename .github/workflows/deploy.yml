@@ -77,7 +77,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-      run: 
+      run: | 
         kubectl version | grep Client
         aws eks update-kubeconfig --region ap-south-1 --name DemoEKS-dev
         cat ~/.kube/config
