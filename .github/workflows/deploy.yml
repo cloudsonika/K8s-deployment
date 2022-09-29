@@ -72,8 +72,16 @@ jobs:
       with:
         base64-kube-config: ${{ secrets.KUBE_CONFIG }}
 
-    - name: run basic command    
-      run: kubectl get pods
+    - name: run basic command
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+      run: 
+        base64 -d $base64-kube-config > ./kube_config
+        export KUBECONFIG=./kube_config
+        kubectl get pods
+
       
     # - name: deploy to cluster 
     #   uses: kodermax/kubectl-aws-eks@master 
