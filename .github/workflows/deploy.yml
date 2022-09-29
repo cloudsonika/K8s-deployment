@@ -85,3 +85,7 @@ jobs:
         kubectl get pods --kubeconfig ~/.kube/config
         ls
         pwd
+        cd K8s
+        kubectl apply -f demo-app-deployment.yaml
+        kubectl apply -f demo-app-service.yaml
+        kubectl apply -f hpa.yaml
