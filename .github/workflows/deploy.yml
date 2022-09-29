@@ -78,7 +78,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         base64-kube-config: ${{ secrets.KUBE_CONFIG }}
       run: 
-        base64 -d $base64-kube-config > ./kube_config
+        --decode $base64-kube-config > ./kube_config
         export KUBECONFIG=./kube_config
         kubectl get pods
 
