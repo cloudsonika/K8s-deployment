@@ -81,6 +81,7 @@ jobs:
         kubectl version | grep Client
         aws eks update-kubeconfig --region ap-south-1 --name DemoEKS-dev
         cat ~/.kube/config
+        kubectl cluster-info
         kubectl get pods --kubeconfig ~/.kube/config
 
       
