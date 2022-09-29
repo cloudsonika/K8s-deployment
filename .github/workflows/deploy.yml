@@ -66,15 +66,22 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-    - name: Deploy app on EKS using image pushed to ECR
-      id: deploy-app-eks
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: demo-app
-      run: |
-        # ECR be deploy to EKS
-        aws eks update-kubeconfig --name DemoEKS-dev
-        kubectl create namespace eksdemo
-        kubectl config set-context --current --namespace=eksdemo
-        kubectl cluster-info
-        kubectl apply -k .
+    - name: kubectl-using-github
+      uses: actions-hub/kubectl@master 
+      env: 
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }} 
+      with:
+        args: get pods
+    
+    # - name: Deploy app on EKS using image pushed to ECR
+    #   id: deploy-app-eks
+    #   env:
+    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #     IMAGE_TAG: demo-app
+    #   run: |
+    #     # ECR be deploy to EKS
+    #     aws eks update-kubeconfig --name DemoEKS-dev
+    #     kubectl create namespace eksdemo
+    #     kubectl config set-context --current --namespace=eksdemo
+    #     kubectl cluster-info
+    #     kubectl apply -k .
