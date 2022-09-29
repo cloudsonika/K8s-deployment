@@ -78,8 +78,11 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         base64-kube-config: ${{ secrets.KUBE_CONFIG }}
       run: 
-        base64 --decode ${base64-kube-config} > ./kube_config
-        export KUBECONFIG=./kube_config
+        #base64 --decode ${base64-kube-config} > ./kube_config
+        kubectl version | grep Client
+        #export KUBECONFIG=./kube_config
+        aws eks update-kubeconfig --region ap-south-1 --name DemoEKS-dev
+        cat ~/.kube/config
         kubectl get pods
 
       
