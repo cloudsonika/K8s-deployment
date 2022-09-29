@@ -87,5 +87,5 @@ jobs:
         pwd
         cd K8s
         kubectl apply -f demo-app-deployment.yaml
-        kubectl apply -f demo-app-service.yaml
-        kubectl apply -f hpa.yaml
+        kubectl apply -f demo-app-service.yaml || true
+        kubectl apply -f hpa.yaml || true
