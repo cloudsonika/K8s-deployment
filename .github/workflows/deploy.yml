@@ -39,6 +39,7 @@ jobs:
         IMAGE_TAG: demo-app
       run: |
          # Build a docker container image
+         cat ./Dockerfile | docker run --rm -i hadolint/hadolint
          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
          docker build -t demo-app-image .
 
