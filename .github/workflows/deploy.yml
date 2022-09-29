@@ -65,3 +65,16 @@ jobs:
         # be deployed to EKS
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+    - name: Deploy app on EKS using image pushed to ECR
+      id: deploy-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: demo-app
+      run: |
+        # ECR be deploy to EKS
+        aws eks update-kubeconfig --name DemoEKS-dev
+        kubectl create namespace eksdemo
+        kubectl config set-context --current --namespace=eksdemo
+        kubectl cluster-info
+        kubectl apply -k .
