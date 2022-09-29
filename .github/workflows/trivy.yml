@@ -7,7 +7,11 @@ on:
 jobs:
   build:
     name: Build
+<<<<<<< HEAD
     runs-on: ubuntu-20.04
+=======
+    runs-on: ubuntu-latest
+>>>>>>> a48a583d056606c15ed899669709857640766eed
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,4 +26,8 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
+<<<<<<< HEAD
           severity: 'CRITICAL,HIGH'
+=======
+          severity: 'CRITICAL,HIGH'
+>>>>>>> a48a583d056606c15ed899669709857640766eed
