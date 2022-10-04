@@ -7,7 +7,7 @@ on:
 env:
   AWS_REGION: ap-south-1                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: demo-ecr-repo           # set this to your Amazon ECR repository name
-
+  build_num: ${{ github.run_number }}
 permissions:
   contents: read
 
@@ -40,7 +40,7 @@ jobs:
       run: |
          # Build a docker container image
          cat ./Dockerfile | docker run --rm -i hadolint/hadolint
-         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG_$build_number .
          docker build -t demo-app-image .
 
     - name: Run Trivy vulnerability scanner on image
@@ -64,8 +64,8 @@ jobs:
       run: |
         # push it to ECR so that it can
         # be deployed to EKS
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG_$build_number
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG_$build_number"
     
     - name: Install kubectl cli
       uses: tale/kubectl-action@v1
