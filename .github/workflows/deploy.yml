@@ -40,7 +40,7 @@ jobs:
       run: |
          # Build a docker container image
          cat ./Dockerfile | docker run --rm -i hadolint/hadolint
-         echo $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG_$build_number
+         echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG_$build_number"
          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG_$build_number .
          docker build -t demo-app-image .
 
