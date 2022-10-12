@@ -1,0 +1,29 @@
+# Default values for testchart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+general:
+  name: demo-app
+  appname: demo-app
+  containername: demo-app-container
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  image: 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:demo-app
+  pullPolicy: Always
+
+imagePullSecrets: [name: regcred]
+
+service:
+  type: LoadBalancer
+  port: 5000
+
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 40
+  # targetMemoryUtilizationPercentage: 80
