@@ -13,6 +13,6 @@ steps:
 - script: | 
     cat ./Dockerfile | docker run --rm -i hadolint/hadolint
     docker build -t demo-app-image .
-    ls /var/lib/docker/overlay2
+    sudo ls /var/lib/docker/overlay2
     docker info 
   displayName: Build docker image
