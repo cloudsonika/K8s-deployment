@@ -10,22 +10,9 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: actions/checkout@v3
-  displayName: 'Checkout'
-
 - script: | 
     cat ./Dockerfile | docker run --rm -i hadolint/hadolint
     docker build -t demo-app-image .
     ls /var/lib/docker
+    docker info 
   displayName: Build docker image
-
-- task: ArchiveFiles@2
-  inputs:
-    archiveType: "zip"
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).zip'
-    replaceExistingArchive: true
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$Build.BuildNumber).zip'
