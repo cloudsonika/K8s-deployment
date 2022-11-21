@@ -36,7 +36,18 @@ steps:
     displayName: 'Docker Push with tags'
 
 
-  # - task: PublishBuildArtifacts@1
-  #   displayName: 'Publish Artifact: drop'
-  #   inputs:
-  #     PathtoPublish: '$(build.artifactstagingdirectory)/$(Build.BuildNumber).zip'
+  - task: CopyFiles@2
+    displayName: 'Copy K8's Files to artifact directory'
+    inputs:
+       SourceFolder: 'K8s'
+       Contents: |
+          *
+       TargetFolder: '$(build.artifactstagingdirectory)'
+       CleanTargetFolder: true
+       OverWrite: true
+       flattenFolders: true
+
+  - bash: |
+      cd $(build.artifactstagingdirectory)
+      zip -r k8s-$(Build.BuildNumber).zip *
+    displayName: 'Build Zip'
