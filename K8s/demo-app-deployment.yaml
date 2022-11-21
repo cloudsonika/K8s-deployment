@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demo-app-container
-        image: 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:demo-app
+        image: 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
         imagePullPolicy: Always
         ports:
           - name: web
