@@ -51,3 +51,9 @@ steps:
       cd $(build.artifactstagingdirectory)
       zip -r k8s-$(Build.BuildNumber).zip *
     displayName: 'Build Zip'
+  
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+    inputs:
+      ArtifactName:  'k8sBuilds'
+      PathtoPublish: '$(build.artifactstagingdirectory)/k8s-$(Build.BuildNumber).zip'
