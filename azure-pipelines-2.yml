@@ -1,0 +1,76 @@
+trigger:
+  - main
+pool:
+  vmImage: ubuntu-latest
+variables:
+  - group: test-dev
+
+steps:
+  - bash: |
+      cd $(Agent.BuildDirectory)
+
+      git clone -b integration git
+      git clone -b integration git
+
+
+
+  - task: Maven@3
+    displayName: 'trial Build'
+    inputs:
+      mavenPomFile: '$(Agent.BuildDirectory)/testadj/pom.xml'
+      goals: 'clean install'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    inputs:
+      SourceFolder: '$(Agent.BuildDirectory)/testadj/test/'
+      Contents: |
+        **/target/**
+        **/Dockerfile
+      TargetFolder: '$(build.artifactstagingdirectory)'
+      CleanTargetFolder: false
+      OverWrite: true
+      flattenFolders: true
+
+  - bash: |
+      cd $(build.artifactstagingdirectory)
+      zip -r $(Build.BuildNumber).zip *
+    displayName: 'Build Zip Artifact test'
+
+
+  - script: |
+      aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
+    displayName: 'Login to AWS - ECR'
+    env:
+      AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
+      AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
+
+
+  - task: Docker@2
+    displayName: 'Building Docker Image with tags trial service'
+    inputs:
+      repository: 'test-service'
+      command: 'build'
+      Dockerfile: '$(Agent.BuildDirectory)/testadj/test/Dockerfile'
+      tags: '$(Build.BuildNumber)'
+      addPipelineData: false
+      addBaseImageData: false
+
+
+  - bash: |
+      docker images
+      docker tag test-service:$(Build.BuildNumber) $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/test-service:$(Build.BuildNumber)
+      docker push $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/test-service:$(Build.BuildNumber)
+    displayName: 'Docker Push with tags'
+
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)/$(Build.BuildNumber).zip'
