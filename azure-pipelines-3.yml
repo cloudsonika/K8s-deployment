@@ -11,9 +11,6 @@ steps:
   - bash: |
       ls
       pwd
-      cd $(Agent.BuildDirectory)
-      ls
-      pwd
     displayName: 'Build Zip Artifact test'
 
 
