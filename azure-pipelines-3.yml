@@ -24,15 +24,15 @@ steps:
       repository: 'demo-ecr-repo'
       command: 'build'
       Dockerfile: 'Dockerfile'
-      tags: '$(Build.BuildNumber)'
+      tags: 'latest'
       addPipelineData: false
       addBaseImageData: false
 
 
   - bash: |
       docker images
-      docker tag demo-ecr-repo:$(Build.BuildNumber) 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:$(Build.BuildNumber)
-      docker push 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:$(Build.BuildNumber)
+      docker tag demo-ecr-repo:latest 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
+      docker push 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
     displayName: 'Docker Push with tags'
 
 
