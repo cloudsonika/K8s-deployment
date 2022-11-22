@@ -13,13 +13,9 @@ steps:
       command: 'install'
       #workingDir: './package.json'
   
-  - task: Npm@1
-    displayName: 'Test'
-    inputs:
-      command: 'test'
-      #workingDir: './package.json'
-  
-
+  - bash: |
+       npm test
+    displayName: 'test'
 
   - script: |
       aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin 954678508118.dkr.ecr.$(AWS_REGION).amazonaws.com
