@@ -7,6 +7,12 @@ variables:
 
 steps:
 
+  - task: Npm@1
+    displayName: 'Build'
+    inputs:
+      command: 'install'
+      workingDir: './package.json'
+  
 
 
   - script: |
@@ -19,7 +25,7 @@ steps:
 
   - bash: |
        docker run --rm -i hadolint/hadolint < Dockerfile
-    displayName: ‘Dockerfile LINTING'
+    displayName: 'Dockerfile LINTING'
 
   - task: Docker@2
     displayName: 'Building Docker Image with tags trial service'
