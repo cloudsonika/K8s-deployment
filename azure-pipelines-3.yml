@@ -31,6 +31,7 @@ steps:
 
   - bash: |
       docker images
+      cat ./Dockerfile | docker run --rm -i hadolint/hadolint
       docker tag demo-ecr-repo:latest 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
       docker push 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
     displayName: 'Docker Push with tags'
