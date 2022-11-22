@@ -31,11 +31,10 @@ steps:
       addPipelineData: false
       addBaseImageData: false
   
-  - task: trivy@1
-    displayName: 'TRIVY SCAN'
-    inputs:
-      version: 'latest'
-      image: 'demo-ecr-repo:latest'
+  - bash: |
+       docker pull aquasec/trivy
+       docker run aquasec/trivy image demo-ecr-repo:latest
+    displayName: 'Trivy Scan'
 
 
   - bash: |
