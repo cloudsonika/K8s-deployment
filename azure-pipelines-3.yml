@@ -16,16 +16,13 @@ steps:
       AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
       AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
       AWS_SESSION_TOKEN: $(AWS_SESSION_TOKEN)
-
+  
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'SonarCloud'
       organization: 'cloudsonika'
       scannerMode: 'CLI'
-      configMode: 'manual'
-      cliProjectKey: 'K8s_deployment'
-      cliProjectName: 'K8s_deployment'
-      cliSources: '.'
+      configMode: 'file'
 
   - task: SonarCloudAnalyze@1
 
