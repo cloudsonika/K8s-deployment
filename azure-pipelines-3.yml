@@ -13,6 +13,12 @@ steps:
       command: 'install'
       #workingDir: './package.json'
   
+  - task: Npm@1
+    displayName: 'Test'
+    inputs:
+      command: 'test'
+      #workingDir: './package.json'
+  
 
 
   - script: |
