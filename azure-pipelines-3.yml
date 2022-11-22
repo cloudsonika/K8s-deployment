@@ -32,8 +32,8 @@ steps:
       addBaseImageData: false
   
   - bash: |
-       docker pull aquasec/trivy
-       docker run --rm aquasec/trivy image demo-ecr-repo --vuln-type os
+       apt-get install trivy
+       trivy images demo-ecr-repo:latest
     displayName: 'Trivy Scan'
 
 
