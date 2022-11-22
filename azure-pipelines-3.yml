@@ -33,7 +33,7 @@ steps:
   
   - bash: |
        docker pull aquasec/trivy
-       docker run aquasec/trivy image demo-ecr-repo:latest
+       docker run --rm aquasec/trivy image demo-ecr-repo:latest --vuln-type os
     displayName: 'Trivy Scan'
 
 
