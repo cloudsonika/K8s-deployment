@@ -17,6 +17,21 @@ steps:
       AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
       AWS_SESSION_TOKEN: $(AWS_SESSION_TOKEN)
 
+  - task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'cloudsonika'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'K8s_deployment'
+    cliProjectName: 'K8s_deployment'
+    cliSources: '.'
+
+  - task: SonarCloudAnalyze@1
+
+  - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
 
   - task: Docker@2
     displayName: 'Building Docker Image with tags trial service'
