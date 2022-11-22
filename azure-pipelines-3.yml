@@ -33,7 +33,7 @@ steps:
   
   - bash: |
        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.34.0
-       trivy images demo-ecr-repo:latest
+       trivy image demo-ecr-repo:latest
     displayName: 'Trivy Scan'
 
 
