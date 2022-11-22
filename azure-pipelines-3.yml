@@ -16,7 +16,11 @@ steps:
       AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
       AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
       AWS_SESSION_TOKEN: $(AWS_SESSION_TOKEN)
-  
+
+  - bash: |
+       docker login -u $(dockeruser) -p $(dockerpassword)
+       docker run --rm -i hadolint/hadolint < Dockerfile
+    displayName: ‘Dockerfile LINTING'
 
   - task: Docker@2
     displayName: 'Building Docker Image with tags trial service'
@@ -33,7 +37,6 @@ steps:
 
   - bash: |
       docker images
-      cat ./Dockerfile | docker run --rm -i hadolint/hadolint
       docker tag demo-ecr-repo:latest 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
       docker push 954678508118.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr-repo:latest
     displayName: 'Docker Push with tags'
