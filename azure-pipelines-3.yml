@@ -18,7 +18,6 @@ steps:
       AWS_SESSION_TOKEN: $(AWS_SESSION_TOKEN)
 
   - bash: |
-       docker login -u $(dockeruser) -p $(dockerpassword)
        docker run --rm -i hadolint/hadolint < Dockerfile
     displayName: ‘Dockerfile LINTING'
 
