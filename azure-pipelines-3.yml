@@ -11,7 +11,7 @@ steps:
     displayName: 'Build'
     inputs:
       command: 'install'
-      workingDir: './package.json'
+      #workingDir: './package.json'
   
 
 
