@@ -25,6 +25,14 @@ steps:
       configMode: 'manual'
       cliProjectKey: 'sonika_bs'
       cliSources: '.'
+  
+  - task: SonarCloudAnalyze@1
+
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
+  
+  
   - script: |
       aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin 954678508118.dkr.ecr.$(AWS_REGION).amazonaws.com
     displayName: 'Login to AWS - ECR'
