@@ -22,7 +22,10 @@ steps:
       SonarCloud: 'SONAR_TOKEN'
       organization: 'sonikabs'
       scannerMode: 'CLI'
-      configMode: 'file'
+      configMode: 'manual'
+      cliProjectKey: 'sonika_bs'
+      cliProjectName: 'sonika_bs'
+      cliSources: '.'
   
   - task: SonarCloudAnalyze@1
 
