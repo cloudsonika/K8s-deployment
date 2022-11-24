@@ -17,6 +17,14 @@ steps:
        npm test
     displayName: 'test'
 
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'SONAR_TOKEN'
+      organization: 'sonikabs'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'sonika_bs'
+      cliSources: '.'
   - script: |
       aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin 954678508118.dkr.ecr.$(AWS_REGION).amazonaws.com
     displayName: 'Login to AWS - ECR'
