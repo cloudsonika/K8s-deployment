@@ -16,15 +16,13 @@ steps:
   - bash: |
        npm test
     displayName: 'test'
-
+  
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'SONAR_TOKEN'
       organization: 'sonikabs'
-      scannerMode: 'CLI'
-      configMode: 'manual'
-      cliProjectKey: 'sonika_bs'
-      cliSources: '.'
+      scannerMode: 'MSBuild'
+      projectKey: 'sonika_bs'
   
   - task: SonarCloudAnalyze@1
 
