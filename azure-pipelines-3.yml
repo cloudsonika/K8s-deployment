@@ -21,8 +21,8 @@ steps:
     inputs:
       SonarCloud: 'SONAR_TOKEN'
       organization: 'sonikabs'
-      scannerMode: 'MSBuild'
-      projectKey: 'sonika_bs'
+      scannerMode: 'CLI'
+      configMode: 'file'
   
   - task: SonarCloudAnalyze@1
 
