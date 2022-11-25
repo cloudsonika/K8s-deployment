@@ -22,7 +22,11 @@ steps:
       SonarCloud: 'SONAR_TOKEN'
       organization: 'sonikabs'
       scannerMode: 'CLI'
-      configMode: 'file'
+      configMode: 'manual'
+      cliProjectKey: 'sonika_bs'
+      cliProjectName: 'sonika_bs'
+      cliSources: '.'
+      extraProperties: 'sonar.javascript.lcov.reportPaths=./coverage/lcov.info'
   
   - task: SonarCloudAnalyze@1
 
