@@ -27,7 +27,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:             
-            -Dsonar.projectKey=cloudsonika_K8s-deployment
-            -Dsonar.organization=cloudsonika
+            -Dsonar.projectKey=sonika_bs
+            -Dsonar.organization=sonikabs
 
 
